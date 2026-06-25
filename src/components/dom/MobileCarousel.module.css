@@ -1,0 +1,92 @@
+.carousel {
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  width: 100%;
+  display: none; /* Hidden by default on desktop */
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* Show only on small screens (mobile viewports) */
+@media (max-width: 768px) {
+  .carousel {
+    display: flex;
+  }
+}
+
+.track {
+  width: 100%;
+  padding: 0 32px;
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none; /* Hide scrollbar for clean UI */
+  pointer-events: auto;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  flex: 0 0 75%;
+  scroll-snap-align: center;
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  transition: border-color var(--transition-medium);
+}
+
+.dark .card {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 8px var(--neon-glow);
+}
+
+.cardActive {
+  border-color: var(--accent-color);
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.cardDesc {
+  font-size: 11px;
+  color: var(--muted-color);
+  line-height: 1.4;
+}
+
+.indicators {
+  display: flex;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  background: var(--border-color);
+  border-radius: 50%;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.dotActive {
+  background: var(--accent-color);
+  transform: scale(1.3);
+  box-shadow: 0 0 6px var(--neon-glow);
+}

@@ -1,0 +1,94 @@
+.nav {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  width: 100%;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 90;
+  pointer-events: none; /* Let canvas through */
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--muted-color);
+  margin-top: 2px;
+}
+
+.controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.pill {
+  background: var(--card-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--border-color);
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all var(--transition-medium);
+}
+
+.pillBtn {
+  cursor: pointer;
+}
+
+.pillBtn:hover {
+  background: var(--text-color);
+  color: var(--bg-color);
+  border-color: var(--text-color);
+}
+
+.zoneIndicator {
+  font-family: var(--font-mono);
+}
+
+.zoneDot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-color);
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 6px var(--neon-glow);
+}
+
+@media (max-width: 600px) {
+  .nav {
+    padding: 0 16px;
+    top: 16px;
+  }
+
+  .title {
+    font-size: 14px;
+  }
+
+  .pill {
+    padding: 6px 12px;
+    font-size: 10px;
+  }
+}
