@@ -1,11 +1,9 @@
 'use client';
 
-import React, { Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
+import React from 'react';
 import { useResidencyStore } from '../hooks/useResidencyStore';
 import { useAudioEngine } from '../hooks/useAudioEngine';
-import Room from '../components/canvas/Room';
-import CameraController from '../components/canvas/CameraController';
+import Room2D from '../components/dom/Room2D';
 import Navigation from '../components/dom/Navigation';
 import ConversationalUI from '../components/dom/ConversationalUI';
 import MobileCarousel from '../components/dom/MobileCarousel';
@@ -13,12 +11,12 @@ import styles from './page.module.css';
 
 export default function Home() {
   const { activeRoom, setRoom, setMusicPlaying } = useResidencyStore();
-  const { frequencyData, initAudio, updateSpatialListener } = useAudioEngine();
+  const { initAudio } = useAudioEngine();
 
   const handleEnterResidency = () => {
     // Initialize Web Audio API in response to user interaction
     initAudio();
-    // Transition camera into the living room
+    // Transition into the living room
     setRoom('living-room');
     // Start playing the DJ mix
     setMusicPlaying(true);
@@ -28,19 +26,8 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      {/* 1. Immersive 3D WebGL Canvas */}
-      <div className={styles.canvasContainer}>
-        <Canvas
-          shadows
-          camera={{ position: [0, 2.5, 15], fov: 45 }}
-          gl={{ antialias: true, powerPreference: 'high-performance' }}
-        >
-          <Suspense fallback={null}>
-            <Room frequencyData={frequencyData} />
-            <CameraController updateSpatialListener={updateSpatialListener} />
-          </Suspense>
-        </Canvas>
-      </div>
+      {/* 1. Immersive 2D Interactive Room */}
+      <Room2D />
 
       {/* 2. Brand HUD Overlay Navigation */}
       <Navigation />
@@ -65,7 +52,7 @@ export default function Home() {
               Enter The Residency
             </button>
             <p className={styles.footerNote}>
-              *Experience contains audio and interactive 3D elements.
+              *Experience contains audio and interactive elements.
             </p>
           </div>
         </div>
