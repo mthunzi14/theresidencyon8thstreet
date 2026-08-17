@@ -1,29 +1,32 @@
 .viewport {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  background: var(--bg-color);
-  transition: background-color var(--transition-slow);
+  background: #000; /* Dark canvas backboard to hide bleed */
+  overflow: hidden;
 }
 
 .roomContainer {
-  position: relative;
-  width: 90vmin;
-  height: 90vmin;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  /* Mathematical scale to lock aspect ratio of portrait 1:1 empty_room 
+     while ensuring it always takes up 100% of viewport space with no white bars */
+  width: 100vmax;
+  height: 100vmax;
+  min-width: 100vw;
+  min-height: 100vh;
+  
   background-image: url('/images/empty_room.jpg');
   background-size: cover;
   background-position: center;
-  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
-  transition: transform var(--transition-slow), filter var(--transition-slow), box-shadow var(--transition-slow);
-}
-
-.dark .roomContainer {
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4), 0 0 30px var(--neon-glow);
+  transition: filter var(--transition-slow);
 }
 
 /* Light Switch overlay */
@@ -45,14 +48,14 @@
   height: 10px;
   border-radius: 50%;
   background: #ffc400;
-  box-shadow: 0 0 8px #ffc400;
+  box-shadow: 0 0 10px #ffc400, 0 0 20px #ffc400;
   transition: all var(--transition-medium);
   animation: pulseLight 2s infinite;
 }
 
 .dark .switchIndicator {
   background: #ff5233;
-  box-shadow: 0 0 12px #ff5233, 0 0 20px #ff5233;
+  box-shadow: 0 0 12px #ff5233, 0 0 24px #ff5233;
 }
 
 /* Focused Room Overlay */
@@ -62,7 +65,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.55);
   opacity: 0;
   z-index: 5;
   pointer-events: none;
@@ -81,23 +84,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: z-index var(--transition-fast);
+  transition: transform var(--transition-medium), z-index var(--transition-fast);
 }
 
 .hotspotActive {
   z-index: 10; /* Elevate above dimOverlay */
 }
 
-/* Glowing Pulse Dot */
+/* Glowing Pulse Dot (Visual guide sitting above/behind the assets) */
 .pulseDot {
   position: absolute;
-  width: 16px;
-  height: 16px;
+  width: 12px;
+  height: 12px;
   background-color: var(--accent-color);
   border-radius: 50%;
   box-shadow: 0 0 10px var(--accent-color);
-  opacity: 0.8;
+  opacity: 0.7;
   pointer-events: none;
+  z-index: 2;
   transition: opacity var(--transition-medium), transform var(--transition-medium);
   animation: pulse 1.8s infinite;
 }
@@ -107,30 +111,30 @@
   transform: scale(0.1);
 }
 
-/* Object Cutout Overlay Placement */
+/* Object Cutout Overlay Placement - ALWAYS VISIBLE PNG */
 .cutout {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  mix-blend-mode: multiply; /* Blends pure white backgrounds seamlessly into room floors */
-  opacity: 0;
-  transform: scale(0.85);
+  opacity: 0.95; /* Always visible, slightly blended with room lights */
+  transform: scale(1);
   transition: opacity var(--transition-medium), transform var(--transition-medium), filter var(--transition-medium);
-  filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.1));
+  filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.15));
+  z-index: 1;
 }
 
 /* When the specific hotspot is hovered or clicked active */
 .hotspotActive .cutout {
   opacity: 1;
   transform: scale(1.08);
-  filter: drop-shadow(0px 12px 24px rgba(0,0,0,0.4));
+  filter: drop-shadow(0px 16px 32px rgba(0,0,0,0.5));
 }
 
-/* Coordinates for Hotspots */
+/* Coordinates for Hotspots mapped logically to the room layout */
 .djDeck {
-  top: 36%;
-  left: 22%;
-  width: 18%;
+  top: 40%;
+  left: 14%;
+  width: 16%;
   height: 14%;
 }
 
@@ -142,14 +146,14 @@
 }
 
 .clothingRack {
-  top: 32%;
+  top: 40%;
   left: 56%;
   width: 16%;
-  height: 20%;
+  height: 22%;
 }
 
 .photography {
-  top: 62%;
+  top: 65%;
   left: 36%;
   width: 22%;
   height: 22%;
@@ -175,11 +179,4 @@
   0% { transform: scale(0.95); opacity: 0.8; }
   50% { transform: scale(1.1); opacity: 1; }
   100% { transform: scale(0.95); opacity: 0.8; }
-}
-
-@media (max-width: 600px) {
-  .roomContainer {
-    width: 95vmin;
-    height: 95vmin;
-  }
 }

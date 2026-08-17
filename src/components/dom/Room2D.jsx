@@ -57,7 +57,7 @@ export default function Room2D() {
         >
           <div className={styles.pulseDot}></div>
           <img 
-            src="/images/dj_deck.jpg" 
+            src="/images/dj_deck.png" 
             alt="DJ Deck Cutout" 
             className={styles.cutout}
           />
@@ -76,7 +76,7 @@ export default function Room2D() {
         >
           <div className={styles.pulseDot}></div>
           <img 
-            src="/images/sneakers.jpg" 
+            src="/images/sneakers.png" 
             alt="Sneakers Cutout" 
             className={styles.cutout}
           />
@@ -95,7 +95,7 @@ export default function Room2D() {
         >
           <div className={styles.pulseDot}></div>
           <img 
-            src="/images/clothing_rack.jpg" 
+            src="/images/clothing_rack.png" 
             alt="Clothing Rack Cutout" 
             className={styles.cutout}
           />
@@ -114,7 +114,7 @@ export default function Room2D() {
         >
           <div className={styles.pulseDot}></div>
           <img 
-            src="/images/photography_book.jpg" 
+            src="/images/photography_book.png" 
             alt="Photography Book Cutout" 
             className={styles.cutout}
           />
